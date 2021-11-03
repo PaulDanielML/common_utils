@@ -1,0 +1,8 @@
+httpx
+pandas
+Pillow
+loguru
+tqdm
+jupyter
+ipywidgets
+pyinstrument
