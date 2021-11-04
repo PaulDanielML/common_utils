@@ -4,6 +4,8 @@ import os
 import datetime
 import platform
 
+__all__ = ["get_file_creation_time", "get_file_age_in_days", "get_last_modified_time"]
+
 
 def get_file_creation_time(path_to_file: Path) -> Optional[datetime.datetime]:
     """

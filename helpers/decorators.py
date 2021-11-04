@@ -6,6 +6,8 @@ from pyinstrument import Profiler
 
 from .files import get_file_age_in_days
 
+__all__ = ["profile", "execute_if_older"]
+
 
 def profile(func):
     """
