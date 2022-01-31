@@ -1,0 +1,12 @@
+ARG VARIANT="3.9-bullseye"
+FROM mcr.microsoft.com/vscode/devcontainers/python:0-${VARIANT}
+
+COPY requirements.txt /tmp/pip-tmp/requirements.txt
+
+# Put relevant files, such as ssh & api keys etc in resources dir
+# COPY resources/ /
+# RUN mkdir ~/.ssh; mv /id_rsa /known_hosts ~/.ssh
+
+RUN pip install --upgrade pip
+RUN pip install -U --no-cache-dir -r /tmp/pip-tmp/requirements.txt \
+    && rm -rf /tmp/pip-tmp

@@ -1,0 +1,42 @@
+version: "3.8"
+services:
+  # This serverice provides a VPN network stack
+  openvpn-client:
+    image: ghcr.io/wfg/openvpn-client
+    container_name: openvpn-client
+    cap_add:
+      - NET_ADMIN
+    devices:
+      - /dev/net/tun:/dev/net/tun
+    environment:
+      - VPN_CONFIG_FILE=xxxxxx.ovpn
+      - VPN_AUTH_SECRET=auth
+    volumes:
+      - ~/oyo/vpn/:/data/vpn
+    restart: unless-stopped
+    ports:
+      - "xxxx:xxxx"
+    secrets:
+      - auth
+
+  # If only certain services should use a VPN connection, use network_mode like this
+  vpn_service_1:
+    build:
+      context: .
+      dockerfile: Dockerfile_xxxx
+    network_mode: service:openvpn-client
+    depends_on:
+      - openvpn-client
+
+  # Normal dev environment. If only this is needed, just build Dockerfile directly
+  dev:
+    build:
+      context: .
+      dockerfile: Dockerfile_dev
+    env_file: .devcontainer/devcontainer.env
+    depends_on:
+      - xxxx
+
+secrets:
+  auth:
+    file: ~/vpn/auth.txt
