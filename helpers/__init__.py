@@ -5,6 +5,7 @@ from .decorators import *
 from .download import *
 from .files import *
 from .pandas_utils import *
+from .visualization import *
 
 def isnotebook():
     try:
