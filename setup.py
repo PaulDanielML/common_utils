@@ -10,7 +10,9 @@ def _read_requirements():
         return ""
 
 
-install_requires = [l for l in _read_requirements().split("\n") if l and not l.startswith("#")]
+install_requires = [
+    l for l in _read_requirements().split("\n") if l and not l.startswith("#")
+]
 
 setuptools.setup(
     name="helpers",

@@ -7,6 +7,7 @@ from .files import *
 from .pandas_utils import *
 from .visualization import *
 
+
 def isnotebook():
     try:
         shell = get_ipython().__class__.__name__
@@ -22,5 +23,9 @@ else:
 
 logger.remove()
 logger.add(
-    lambda msg: tqdm.write(msg, end=""), colorize=True, enqueue=True, level="INFO", backtrace=True
+    lambda msg: tqdm.write(msg, end=""),
+    colorize=True,
+    enqueue=True,
+    level="INFO",
+    backtrace=True,
 )

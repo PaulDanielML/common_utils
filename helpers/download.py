@@ -50,7 +50,9 @@ async def cor_download_single(
     row["downloaded"] = False
     row["correct_tag"] = True
 
-    accommodation_code = row["accommodation_code"] if "accommodation_code" in row else "Unknown"
+    accommodation_code = (
+        row["accommodation_code"] if "accommodation_code" in row else "Unknown"
+    )
     file_name = row[file_column_name]
 
     # simple way to retry failed downloads

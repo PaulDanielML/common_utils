@@ -5,10 +5,14 @@ import datetime
 import platform
 import pickle
 
-__all__ = ["get_file_creation_time", "get_file_age_in_days", "get_last_modified_time", "match_search_str_in_dir", "save_structure", "load_structure"]
-
-
-
+__all__ = [
+    "get_file_creation_time",
+    "get_file_age_in_days",
+    "get_last_modified_time",
+    "match_search_str_in_dir",
+    "save_structure",
+    "load_structure",
+]
 
 
 def match_search_str_in_dir(search_str: str, dir: Path) -> Path:
@@ -21,7 +25,7 @@ def match_search_str_in_dir(search_str: str, dir: Path) -> Path:
     return dir / matching_files[0]
 
 
-def save_structure(obj: Any, name: str, path: Path = BASE_DIR, overwrite: bool = True) -> None:
+def save_structure(obj: Any, name: str, path: Path, overwrite: bool = True) -> None:
     if not path.is_dir():
         path.mkdir(parents=True, exist_ok=True)
 
@@ -36,10 +40,9 @@ def save_structure(obj: Any, name: str, path: Path = BASE_DIR, overwrite: bool =
     print(f"{file_path} saved.")
 
 
-def load_structure(name: str, path: Path = BASE_DIR) -> None:
+def load_structure(name: str, path: Path) -> None:
     with open(path / match_search_str_in_dir(name, path), "rb") as f:
         return pickle.load(f)
-
 
 
 def get_file_creation_time(path_to_file: Path) -> Optional[datetime.datetime]:
