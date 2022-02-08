@@ -6,3 +6,4 @@ tqdm
 jupyter
 ipywidgets
 pyinstrument
+matplotlib
