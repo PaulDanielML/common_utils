@@ -22,7 +22,7 @@ def match_search_str_in_dir(search_str: str, dir: Path) -> Path:
     if not matching_files:
         raise ValueError(f"No matches found for search string {search_str} (looking in {dir}).")
 
-    return dir / matching_files[0]
+    return matching_files[0]
 
 
 def save_structure(obj: Any, name: str, path: Path, overwrite: bool = True) -> None:
