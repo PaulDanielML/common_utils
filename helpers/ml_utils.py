@@ -167,3 +167,24 @@ class InternalConfig:
     @classmethod
     def default(cls):
         return cls.from_dict(SerializableConfigDict.default().dict())
+
+
+def remove_random_transforms(input_transforms: T.Compose) -> T.Compose:
+    """
+    Removes any random torchvision transform from the passes Compose object.
+    Commonly used for inference if training involved random data augmentation.
+    """
+    output_transforms = []
+
+    for t in input_transforms.transforms:
+        if isinstance(t, T.RandomCrop):
+            target_size = t.size
+            output_transforms.append(T.CenterCrop(target_size))
+        elif "random" in t._get_name().lower():
+            continue
+        elif t._get_name().lower() in ["colorjitter"]:
+            continue
+        else:
+            output_transforms.append(t)
+
+    return T.Compose(output_transforms)
