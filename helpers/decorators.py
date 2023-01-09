@@ -1,6 +1,9 @@
 import functools
 from pathlib import Path
+from timeit import default_timer as timer
+from functools import wraps
 
+from line_profiler import LineProfiler
 from loguru import logger
 from pyinstrument import Profiler
 
@@ -63,3 +66,29 @@ def execute_if_older(file_to_check: Path, days: int = 1):
         return wrapper
 
     return decorator
+
+
+def line_profile(function):
+    @wraps(function)
+    def wrapper(*args, **kwargs):
+        try:
+            profiler = LineProfiler(function)
+            profiler.enable_by_count()
+            result = function(*args, **kwargs)
+        finally:
+            profiler.disable_by_count()
+            profiler.print_stats(output_unit=1)
+
+        return result
+
+    return wrapper
+
+
+def time_execution(function):
+    @wraps(function)
+    def wrapper(*args, **kwargs):
+        start = timer()
+        result = function(*args, **kwargs)
+        end = timer()
+
+        print(f"'{function.__name__}' took {round(end - start, 3)}s to execute.")

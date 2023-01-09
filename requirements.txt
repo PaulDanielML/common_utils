@@ -8,3 +8,4 @@ ipywidgets
 pyinstrument
 matplotlib
 plotly
+line_profiler
